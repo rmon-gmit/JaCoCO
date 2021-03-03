@@ -21,28 +21,13 @@ public class CalculatorTest {
     }
 
     @Test
-    void addTestFalse() {
-        assertThrows(IllegalArgumentException.class, () -> calculator.add(0, 3));
-    }
-
-    @Test
     void subtractTestTrue() {
         assertEquals(40, calculator.subtract(50, 10), 0);
     }
 
     @Test
-    void subtractTestFalse() {
-        assertThrows(IllegalArgumentException.class, () -> calculator.subtract(50, 60));
-    }
-
-    @Test
     void multiplyTestTrue() {
         assertEquals(500, calculator.multiply(50, 10), 0);
-    }
-
-    @Test
-    void multiplyTestFalse() {
-        assertThrows(IllegalArgumentException.class, () -> calculator.multiply(0, 0));
     }
 
     @Test
