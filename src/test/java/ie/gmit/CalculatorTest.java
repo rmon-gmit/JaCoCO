@@ -20,25 +20,38 @@ public class CalculatorTest {
         assertEquals(60, calculator.add(50, 10), 0);
     }
 
+    @Test
     void addTestFalse() {
         assertThrows(IllegalArgumentException.class, () -> calculator.add(0, 3));
     }
 
     @Test
-    void subtractTest() {
-        double result = calculator.subtract(50, 10);
-        assertEquals(40, result, 0);
+    void subtractTestTrue() {
+        assertEquals(40, calculator.subtract(50, 10), 0);
     }
 
     @Test
-    void multiplyTest() {
-        double result = calculator.multiply(50, 10);
-        assertEquals(500, result, 0);
+    void subtractTestFalse() {
+        assertThrows(IllegalArgumentException.class, () -> calculator.subtract(50, 60));
     }
 
     @Test
-    void divideTest() {
-        double result = calculator.divide(50, 10);
-        assertEquals(5, result, 0);
+    void multiplyTestTrue() {
+        assertEquals(500, calculator.multiply(50, 10), 0);
+    }
+
+    @Test
+    void multiplyTestFalse() {
+        assertThrows(IllegalArgumentException.class, () -> calculator.multiply(0, 0));
+    }
+
+    @Test
+    void divideTestTrue() {
+        assertEquals(5, calculator.divide(50, 10), 0);
+    }
+
+    @Test
+    void divideTestFalse() {
+        assertThrows(IllegalArgumentException.class, () -> calculator.divide(50, 0));
     }
 }
