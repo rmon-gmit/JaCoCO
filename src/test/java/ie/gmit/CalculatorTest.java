@@ -37,6 +37,7 @@ public class CalculatorTest {
 
     @Test
     void divideTestFalse() {
-        assertThrows(ArithmeticException.class, () -> calculator.divide(50, 0));
+        Exception e = assertThrows(IllegalArgumentException.class, () -> calculator.divide(50, 0));
+        assertEquals("Cannot divide by 0", e.getMessage());
     }
 }
