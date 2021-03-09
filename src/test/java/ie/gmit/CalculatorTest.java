@@ -37,6 +37,6 @@ public class CalculatorTest {
 
     @Test
     void divideTestFalse() {
-        assertThrows(IllegalArgumentException.class, () -> calculator.divide(50, 0));
+        assertThrows(ArithmeticException.class, () -> calculator.divide(50, 0));
     }
 }
