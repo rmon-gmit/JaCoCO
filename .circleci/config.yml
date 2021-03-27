@@ -3,17 +3,31 @@ version: 2.1
 workflows:
   maven_test:
     jobs:
-      - build
-      
+      # Seperating job step as multiple other jobs may depend on this
+      - clean
+      - unit_tests:
+          requires:
+            - clean
+          
 jobs:
-  build:
+  clean:
+    # You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
+    # Be sure to update the docker image tag below to openjdk version of your application.
+    # A list of available CircleCI docker Convenience Images are available here: https://circleci.com/developer/images/image/cimg/openjdk
     docker:
-      - image: circleci/openjdk:11.0-stretch-node-browsers-legacy
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+      - image: cimg/openjdk:11.0
     steps:
+      # Checkout the code as the first step.
       - checkout
-      - run : mvn test
-      - store_artifacts:
-          path:  target
+      # Use mvn clean as the standard maven build phase
+      - run:
+          name: Clean
+          command: mvn -B -DskipTests clean
+  unit_tests:
+      docker:
+        - image: cimg/openjdk:11.0
+      steps:
+        - checkout
+        - run:
+            name: Test
+            command: mvn package
