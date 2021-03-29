@@ -8,6 +8,12 @@ workflows:
       - unit_tests:
           requires:
             - clean
+      - integration_test:
+          requires:
+            - unit_tests
+      - deploy:
+          requires:
+            - integration_test
           
 jobs:
   clean:
@@ -29,9 +35,25 @@ jobs:
       steps:
         - checkout
         - run:
-            name: Test
+            name: Unit Tests
             command: mvn package
+  integration_test:
+      docker:
+        - image: cimg/openjdk:11.0
+      steps:
+        - checkout
+        - run:
+            name: Integration Test
+            command: mvn verify
         - store_artifacts:
             path:  target/site/jacoco
         - store_artifacts:
             path:  target/surefire-reports
+  deploy:
+      docker:
+        - image: cimg/openjdk:11.0
+      steps:
+        - checkout
+        - run:
+            name: Test
+            command: git merge pr/10
