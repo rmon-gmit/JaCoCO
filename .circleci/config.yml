@@ -46,7 +46,7 @@ jobs:
         - checkout
         - run:
             name: Integration Test
-            command: mvn verify -
+            command: mvn verify
         # Storing some results as artifacts to be viewable in CircleCI
         - store_artifacts:
             path:  target/site/jacoco
