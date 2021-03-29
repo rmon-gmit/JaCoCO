@@ -11,7 +11,7 @@ workflows:
       - integration_test:
           requires:
             - unit_tests
-      - deploy:
+      - merge:
           requires:
             - integration_test
 
@@ -53,10 +53,10 @@ jobs:
         - store_artifacts:
             path:  target/surefire-reports
   # Job to deploy to master
-  deploy:
+  merge:
       executor: doc
       steps:
         - checkout
         - run:
-            name: Test
-            command: git checkout master ; git merge
+            name: Merge
+            command: git checkout master ; git merge << pipeline.git.branch	 >>
