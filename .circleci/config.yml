@@ -11,9 +11,6 @@ workflows:
       - integration_test:
           requires:
             - unit_tests
-      - deploy:
-          requires:
-            - integration_test
 
 executors:
   # Specifying executor to run jobs
@@ -52,11 +49,3 @@ jobs:
             path:  target/site/jacoco
         - store_artifacts:
             path:  target/surefire-reports
-  # Job to deploy to master
-  deploy:
-      executor: doc
-      steps:
-        - checkout
-        - run:
-            name: Test
-            command: git merge
